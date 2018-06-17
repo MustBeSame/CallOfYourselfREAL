@@ -21,8 +21,6 @@ public class Deck : MonoBehaviour {
             deck[i] = deck[randomIndex];
             deck[randomIndex] = temp;
         }
-
-        int a = 1;
     }
 
     private void Update()

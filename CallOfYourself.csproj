@@ -298,17 +298,17 @@
     <Reference Include="DOTween">
       <HintPath>Assets\DOTween_1_1_710_hc\DOTween\DOTween.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\DOTween_1_1_710_hc\DOTween\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\DOTween_1_1_710_hc\DOTween\DOTween46.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween50">
       <HintPath>Assets\DOTween_1_1_710_hc\DOTween\DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenEditor">
       <HintPath>Assets\DOTween_1_1_710_hc\DOTween\Editor\DOTweenEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween46">
-      <HintPath>Assets\DOTween_1_1_710_hc\DOTween\DOTween46.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>Assets\DOTween_1_1_710_hc\DOTween\DOTween43.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
