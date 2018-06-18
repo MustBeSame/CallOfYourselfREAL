@@ -21,7 +21,11 @@ MonoBehaviour:
   m_Title: 
   m_RootView: {fileID: 2}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_MinSize: {x: 950, y: 542}
+=======
+  m_MinSize: {x: 950, y: 392}
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
 =======
   m_MinSize: {x: 950, y: 392}
 >>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
@@ -46,9 +50,15 @@ MonoBehaviour:
     x: 0
     y: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     width: 1366
     height: 685
   m_MinSize: {x: 950, y: 542}
+=======
+    width: 1536
+    height: 781
+  m_MinSize: {x: 950, y: 392}
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
 =======
     width: 1536
     height: 781
@@ -120,7 +130,11 @@ MonoBehaviour:
   m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 71
+=======
+  controlID: 2343
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
 =======
   controlID: 2343
 >>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
@@ -148,7 +162,11 @@ MonoBehaviour:
   m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 72
+=======
+  controlID: 2298
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
 =======
   controlID: 2298
 >>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
@@ -391,7 +409,11 @@ MonoBehaviour:
     m_SelectedIDs: 
     m_LastClickedID: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_ExpandedIDs: 86fbffff000000002a2a0000702a0000902a0000ba2a0000
+=======
+    m_ExpandedIDs: 6a5effffc065ffff2a67ffff3ca4ffff2ee0ffff40e6ffff54f6ffff00000000d82e0000822f00008e30000096300000bc30000084330000d2330000
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
 =======
     m_ExpandedIDs: 6a5effffc065ffff2a67ffff3ca4ffff2ee0ffff40e6ffff54f6ffff00000000d82e0000822f00008e30000096300000bc30000084330000d2330000
 >>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
@@ -631,17 +653,23 @@ MonoBehaviour:
     m_SearchArea: 0
     m_Folders:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - Assets/Cards/Spells
   m_ViewMode: 1
   m_StartGridSize: 48
   m_LastFolders:
   - Assets/Cards/Spells
 =======
+=======
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
     - Assets/Cards/Rituals
   m_ViewMode: 1
   m_StartGridSize: 48
   m_LastFolders:
   - Assets/Cards/Rituals
+<<<<<<< HEAD
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
+=======
 >>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
   m_LastFoldersGridSize: 48
   m_LastProjectPath: C:\Users\1513 IRON\Documents\Faculdade\real\CallOfYourselfREAL
@@ -649,9 +677,15 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_SelectedIDs: 30290000
     m_LastClickedID: 10544
     m_ExpandedIDs: 00000000ba270000b628000000ca9a3bffffff7f
+=======
+    m_SelectedIDs: ca2b0000
+    m_LastClickedID: 11210
+    m_ExpandedIDs: 00000000802b0000462c000000ca9a3bffffff7f
+>>>>>>> 7d0d0f27ed42cdd865a2018f56461d07a245a28b
 =======
     m_SelectedIDs: ca2b0000
     m_LastClickedID: 11210
