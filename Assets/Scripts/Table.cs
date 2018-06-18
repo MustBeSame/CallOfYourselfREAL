@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Table : MonoBehaviour {
 
     public Deck deck;
+    public char id;
 
     public List<Player> players = new List<Player>();
 
