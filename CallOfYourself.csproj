@@ -315,7 +315,6 @@
     <Compile Include="Assets\Scripts\BetterCardRotation.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
     <Compile Include="Assets\Scripts\CardDisplay.cs" />
-    <Compile Include="Assets\Scripts\CardPreview.cs" />
     <Compile Include="Assets\Scripts\Cards.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
     <Compile Include="Assets\Scripts\Deck.cs" />
@@ -323,7 +322,6 @@
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\DropZone.cs" />
     <Compile Include="Assets\Scripts\DropZone1.cs" />
-    <Compile Include="Assets\Scripts\HoverPreview.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
