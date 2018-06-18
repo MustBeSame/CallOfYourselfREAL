@@ -30,15 +30,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (3 > this.influence)
+        if (2 <= this.influence)
         {
             level = 1;
         }
-        else if (5 > this.influence && 2 < this.influence)
+        else if (4 <= this.influence)
         {
             level = 2;
         }
-        else if (5 > this.influence)
+        else
         {
             level = 3;
         }

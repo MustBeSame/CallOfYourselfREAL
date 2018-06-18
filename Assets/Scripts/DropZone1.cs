@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class DropZone3 : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler {
+public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler {
 
 	public void OnPointerEnter(PointerEventData eventData) {
 		//Debug.Log("OnPointerEnter");

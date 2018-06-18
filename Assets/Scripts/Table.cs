@@ -26,14 +26,12 @@ public class Table : MonoBehaviour {
     }
     void fillHand()
     {
-        deck.shuffleDeck();
         var panel = GameObject.Find("Hand");
-        var panel2 = GameObject.Find("Hand2");
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < 1; i++)
         {
             while (5 > players[i].hand.Count)
             {
-                
+                deck.shuffleDeck();
                 players[i].hand.Add(deck.Draw());
 
                 if (panel != null)  // make sure you actually found it!
@@ -44,28 +42,9 @@ public class Table : MonoBehaviour {
                     a.GetComponent<CardDisplay>().card = players[i].hand[players[i].hand.Count - 1];
 
                     a = Instantiate(a);
-                    if (i == 0)
-                        a.transform.SetParent(panel.transform, false);
-                    else
-                        a.transform.SetParent(panel2.transform, false);
+                    a.transform.SetParent(panel.transform, false);
                 }
             }
         }
     }
-
-    public void SubmitPlay()
-    {
-        GameObject chain = GameObject.Find("Chain");
-        int a = 0;
-        Card temp = chain.GetComponentInChildren<CardDisplay>().card;
-
-        //foreach (CardDisplay card in chain.GetComponentsInChildren<CardDisplay>())
-        //{
-        //    a++;
-        //}
-     
-        
-    }
-
-
 }
