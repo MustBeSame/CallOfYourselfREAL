@@ -14,4 +14,5 @@ MonoBehaviour:
   cn: 15
   artWork: {fileID: 21300000, guid: 91a639814f780c546bdfa38e9da8d78e, type: 3}
   player: {fileID: 0}
+  id: 80
   type: 1
