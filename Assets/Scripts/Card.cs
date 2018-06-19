@@ -19,6 +19,8 @@ public class Card : ScriptableObject {
 
     public char id;
 
+    public int idPlayerAlvo;
+
     public int type;    
 
     public void setPlayer (Player p) { this.player = p; }

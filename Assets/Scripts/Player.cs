@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int servants, influence, level;
 
     public List<Card> hand = new List<Card>();
-    Stack<int> pStack = new Stack<int>();
+    public Stack<Card> playStack = new Stack<Card>();
 
     public Text serv, inf;
 
@@ -30,15 +30,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (2 <= this.influence)
+        if (3 > this.influence)
         {
             level = 1;
         }
-        else if (4 <= this.influence)
+        else if (2 < this.influence && 5 > this.influence)
         {
             level = 2;
         }
-        else
+        else if (5 <= this.influence)
         {
             level = 3;
         }
