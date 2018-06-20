@@ -688,6 +688,9 @@ MonoBehaviour:
   servants: 0
   influence: 0
   level: 0
+  handCount: 0
+  ip: 
+  roomCreator: 0
   hand: []
   serv: {fileID: 0}
   inf: {fileID: 0}
@@ -1204,7 +1207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 0}
+  m_AnchoredPosition: {x: -169, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &908432056
