@@ -10,7 +10,13 @@ public class MainMenu : MonoBehaviour {
     public void createRoom()
     {
         //SceneManager.LoadScene("Battle");
-        client.createTable();
+        client.InicializaConexao();
+    }
+
+    public void joinRoom()
+    {
+        //SceneManager.LoadScene("Battle");
+        client.JoinGame();
     }
 
     public void Exit()
