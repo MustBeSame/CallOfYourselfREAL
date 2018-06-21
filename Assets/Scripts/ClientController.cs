@@ -6,223 +6,129 @@ using System.Text;
 using MessagesLib;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using System.IO;
-using System.Threading;
 
-public class ClientController : MonoBehaviour
-{
+public class ClientController : MonoBehaviour {
+    Socket sender;
+    IPHostEntry ipHostInfo;
+    IPAddress ipAddress;
+    IPEndPoint remoteEP;
+    byte[] bytes = new byte[1024];
+    char[] data;
     public Player player;
     public Table table;
-    public string password;
     public List<Card> cards = new List<Card>();
     public List<Card> discard = new List<Card>();
-    private string NomeUsuario = "Desconhecido";
-    private StreamWriter stwEnviador;
-    private StreamReader strReceptor;
-    private TcpClient tcpServidor;
-    private delegate void AtualizaLogCallBack(string strMensagem);
-    private delegate void FechaConexaoCallBack(string strMotivo);
-    private Thread mensagemThread;
-    private IPAddress enderecoIP;
-    public string servidorIP = "";
-    private bool Conectado;
-    private string txtLog = "";
-    private string txtUsuario = "Player1";
-    private string txtMensagem = "";
-    public char idTable;
-    private char msgType;
     // Use this for initialization
-
-    void Start()
-    {
+    void Start () {
+        ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+        ipAddress = ipHostInfo.AddressList[0];
+        remoteEP = new IPEndPoint(ipAddress, 11000);
+        sender = new Socket(ipAddress.AddressFamily,
+                SocketType.Stream, ProtocolType.Tcp);
     }
 
     void Aweke()
     {
         DontDestroyOnLoad(this.gameObject);
     }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Conectado && msgType != 'N')
-        {
-            EnviaMensagem();
-        }
-    }
-
-    public void InicializaConexao()
+    public void createTable()
     {
         try
         {
-            enderecoIP = IPAddress.Parse(servidorIP);
-            tcpServidor = new TcpClient();
-            tcpServidor.Connect(enderecoIP, 2502);
+            sender.Connect(remoteEP);
+            char[] password = { '1', '2', '3' };
+            MessagesLib.MsgTableCreateRequest request = new MsgTableCreateRequest('0', ipAddress.ToString().ToCharArray(), '4',password);
+            byte[] msg = Encoding.ASCII.GetBytes(request.createMessage());
 
-            Conectado = true;
-            stwEnviador = new StreamWriter(tcpServidor.GetStream());
-            mensagemThread = new Thread(new ThreadStart(RecebeMensagens));
-            mensagemThread.Start();
-            msgType = '1';
-            
-        }
-        catch (Exception ex)
-        {
-            Debug.Log("Erro : " + ex.Message + "Erro na conexão com servidor");
-        }
-    }
+            int bytesSent = sender.Send(msg);
 
-    public void JoinGame()
-    {
-        try
-        {
-            Debug.Log("Join Game");
-            enderecoIP = IPAddress.Parse(servidorIP);
-            tcpServidor = new TcpClient();
-            tcpServidor.Connect(enderecoIP, 2502);
-
-            Conectado = true;
-            stwEnviador = new StreamWriter(tcpServidor.GetStream());
-            mensagemThread = new Thread(new ThreadStart(RecebeMensagens));
-            mensagemThread.Start();
-            msgType = '2';
+            int bytesRec = sender.Receive(bytes);
+            data = Encoding.ASCII.GetChars(bytes, 0, bytesRec);
+            Debug.Log(data[0]);
+            for(int i = 0;i< data.Length;i++)
+            {
+                Debug.Log(data[i]);
+            }
+            Debug.Log(data.ToString());
+            processMessages();
 
         }
-        catch (Exception ex)
+        catch (ArgumentNullException ane)
         {
-            Debug.Log("Erro : " + ex.Message + "Erro na conexão com servidor");
+            Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+        }
+        catch (SocketException se)
+        {
+            Console.WriteLine("SocketException : {0}", se.ToString());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Unexpected exception : {0}", e.ToString());
         }
     }
 
-    private void RecebeMensagens()
+    private void processMessages()
     {
-        Debug.Log("RecebeMensagens");
-        char[] dados = new char[100];
-        strReceptor = new StreamReader(tcpServidor.GetStream());
-        strReceptor.Read(dados, 0, dados.Length);
-        Debug.Log(dados);
-
-        switch (dados[0])
+        switch (data[0])
         {
-            case '1':
-                Debug.Log("mensagem 0");
-                MsgTableCreateResponse msg = new MsgTableCreateResponse();
-                msg.readMessage(dados);
-                player.idPlayer = msg.IdPlayer;
-                player.idTable = msg.IdTable;
-                player.roomCreator = msg.RoomCreator;
-                table.id = msg.IdTable;
-                for (int i = 0; i < 5;i++)
+            case '0':
+                Debug.Log("Entrou");
+                for (int i = 0; i < data.Length; i++)
                 {
-                    Card c = cards.Find(a => a.id == msg.Hand[i]);
-                    player.hand.Add(c);
+                    Debug.Log(data[i]);
                 }
-                table.deck.size.text = msg.DeckCount.ToString();
-                table.players.Add(player);
+                processCreateTableResponse();
+                break;
+            case '1':
+                processJoinTableResponse();
                 break;
             case '2':
-                MsgTableJoinResponse sgTableJoinResponse = new MsgTableJoinResponse();
-                sgTableJoinResponse.readMessage(dados);
-                player.idPlayer = sgTableJoinResponse.IdPlayer;
-                player.idTable = sgTableJoinResponse.IdTable;
-                player.roomCreator = sgTableJoinResponse.RoomCreator;
-                table.id = sgTableJoinResponse.IdTable;
-                for (int i = 0; i < 5; i++)
-                {
-                    Card c = cards.Find(a => a.id == sgTableJoinResponse.Hand[i]);
-                    player.hand.Add(c);
-                }
-                table.deck.size.text = sgTableJoinResponse.DeckCount.ToString();
-                sgTableJoinResponse.Players.ForEach(a=> {
-                    if (a.Ip != player.ip)
-                    {
-                        table.players.Add(new Player(a.Id,a.Servos,a.Influence,0,a.SizeHand,a.Ip));
-                    }
-                });
-                table.players.Add(player);
+                processPlayResponse();
                 break;
             case '3':
-                MsgTableJoinInfoResponse sgTableJoinInfoResponse = new MsgTableJoinInfoResponse();
-                sgTableJoinInfoResponse.readMessage(dados);
-                Player p = new Player();
-                p.name = sgTableJoinInfoResponse.IpPlayer;
-                p.servants = sgTableJoinInfoResponse.ServosCount;
-                p.influence = sgTableJoinInfoResponse.InfluenceCount;
-                p.handCount = sgTableJoinInfoResponse.HandSize;
-                Debug.Log("Entrou :" +p.name + "servos : " + p.servants + "influ: " + p.influence + "cartas na mao: " + p.handCount);
-                table.players.Add(p);
+                processDrawResponse();
                 break;
             default:
+                Debug.Log("N entrou");
                 break;
         }
     }
 
-    public void EnviaMensagem()
+    private void processDrawResponse()
     {
-        Debug.Log("EnviaMensagem" + msgType);
-        switch (msgType)
+        throw new NotImplementedException();
+    }
+
+    private void processPlayResponse()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void processJoinTableResponse()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void processCreateTableResponse()
+    {
+        Debug.Log("Entrou2");
+        for (int i = 0; i < data.Length; i++)
         {
-            case '1':
-                Debug.Log("mensagem 0");
-                MsgTableCreateRequest msgTableCreateRequest = new MsgTableCreateRequest('1',txtUsuario,'4',password);
-                Debug.Log("mensagem : " + msgTableCreateRequest.createMessage());
-                stwEnviador.WriteLine(msgTableCreateRequest.createMessage());
-                stwEnviador.Flush();
-                msgType = 'N';
-                break;
-            case '2':
-                MsgTableJoinRequest sgTableJoinRequest = new MsgTableJoinRequest('2', idTable, txtUsuario, password);
-                Debug.Log("mensagem : " + sgTableJoinRequest.createMessage());
-                stwEnviador.WriteLine(sgTableJoinRequest.createMessage());
-                stwEnviador.Flush();
-                msgType = 'N';
-                break;
-            default:
-                break;
+            Debug.Log(data[i]);
         }
-    }
-
-    private void FechaConexao(string Motivo)
-    {
-        Conectado = false;
-        stwEnviador.Close();
-        strReceptor.Close();
-        tcpServidor.Close();
-    }
-
-    public void OnApplicationExit(object sender, EventArgs e)
-    {
-        if (Conectado == true)
+        player.idPlayer = data[1];
+        Debug.Log(data[1]);
+        table.id = data[2];
+        Debug.Log(data[2]);
+        for (int i= 0; i< 5;i++)
         {
-            Conectado = false;
-            stwEnviador.Close();
-            strReceptor.Close();
-            tcpServidor.Close();
+            player.hand.Add(cards.Find(a => a.id == data[i+3]));
         }
-    }
-
-    public void setIp(InputField text)
-    {
-        this.servidorIP = text.text;
-        Debug.Log(servidorIP);
-    }
-
-    public void setPasswordTable(InputField text)
-    {
-        this.password = text.text;
-        Debug.Log(password);
-    }
-
-    public void setPLayerName(InputField text)
-    {
-        this.txtUsuario = text.text;
-        player.ip = txtUsuario;
-        Debug.Log(txtUsuario);
-    }
-
-    public void setIdTable(InputField text)
-    {
-        this.idTable = text.text[0];
-        Debug.Log(idTable);
     }
 }

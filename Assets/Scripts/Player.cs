@@ -7,29 +7,12 @@ public class Player : MonoBehaviour
 {
     //Objecto classe player
     public int idPlayer;
-    public int idTable;
-    public int servants, influence, level, handCount;
-    public string ip;
-    public char roomCreator;
+    public int servants, influence, level;
 
     public List<Card> hand = new List<Card>();
     public Stack<Card> playStack = new Stack<Card>();
 
     public Text serv, inf;
-
-    public Player(int idPlayer, int servants, int influence, int level, int handCount, string ip)
-    {
-        this.idPlayer = idPlayer;
-        this.servants = servants;
-        this.influence = influence;
-        this.level = level;
-        this.handCount = handCount;
-        this.ip = ip;
-    }
-
-    public Player() {
-        
-    }
 
     public void setServants(int s) { this.servants = s; serv.text = servants.ToString(); }
     public void setInfluence(int i) { this.influence = i; inf.text = influence.ToString(); }
@@ -38,8 +21,6 @@ public class Player : MonoBehaviour
     public int getInfluence() { return this.influence; }
 
     public int getLevel() { return this.level; }
-
-
 
     private void Start()
     {

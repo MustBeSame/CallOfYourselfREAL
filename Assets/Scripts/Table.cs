@@ -7,7 +7,7 @@ public class Table : MonoBehaviour
 {
 
     public Deck deck;
-    public int id;
+    public char id;
 
 
     public List<Player> players = new List<Player>();
